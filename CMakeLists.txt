@@ -26,6 +26,8 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
 hunter_add_package(Boost COMPONENTS filesystem)
 find_package(Boost CONFIG REQUIRED filesystem)
+hunter_add_package(date)
+find_package(date CONFIG REQUIRED)
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
@@ -39,7 +41,7 @@ add_executable(ftp-explorer-app ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp)
 target_include_directories(ftp-explorer-lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(ftp-explorer-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-target_link_libraries(ftp-explorer-lib PUBLIC Boost::filesystem)
+target_link_libraries(ftp-explorer-lib PUBLIC Boost::filesystem date::date)
 target_link_libraries(tests PRIVATE GTest::gmock_main ftp-explorer-lib)
 target_link_libraries(ftp-explorer-app PRIVATE ftp-explorer-lib)
 
