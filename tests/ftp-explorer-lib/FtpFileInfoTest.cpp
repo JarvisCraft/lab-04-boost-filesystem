@@ -30,7 +30,7 @@ namespace ftp_explorer {
 
     TEST(FtpFileInfo, as_filename) {
         EXPECT_EQ(
-            "balance_88005553_20071103",
+            "balance_88005553_20071103.txt",
             (FtpFileInfo{"balance", 88005553u, date::year_month_day{date::year{2007}, date::month{11u}, date::day{3u}}}
                  .to_filename()));
         EXPECT_EQ("magic_19283746_19961008.txt",
