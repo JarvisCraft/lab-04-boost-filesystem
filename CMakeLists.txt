@@ -41,7 +41,7 @@ target_include_directories(ftp-explorer-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/
 
 target_link_libraries(ftp-explorer-lib PUBLIC Boost::filesystem)
 target_link_libraries(tests PRIVATE GTest::gmock_main ftp-explorer-lib)
-target_link_libraries(ftp-explorer-app PRIVATE GTest::gmock_main template)
+target_link_libraries(ftp-explorer-app PRIVATE ftp-explorer-lib)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests)
