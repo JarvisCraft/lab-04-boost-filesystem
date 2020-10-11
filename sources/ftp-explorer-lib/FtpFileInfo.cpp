@@ -37,14 +37,13 @@ namespace ftp_explorer {
     }
 
     ::std::string FtpFileInfo::to_filename() const {
-        auto const year = (int) date.year();
-        auto const month = (unsigned int) date.month();
-        auto const day = (unsigned int) date.day();
+        auto const year = static_cast<int>(date.year());
+        auto const month = static_cast<unsigned int>(date.month());
+        auto const day = static_cast<unsigned int>(date.day());
 
         return type + '_' + ::std::to_string(id) + '_'
                + (year < 1000 ? year < 100 ? year < 10 ? "000" : "00" : "0" : "") + std::to_string(year)
-               + (month < 10 ? "0" : "") + std::to_string(month)
-               + (day < 10 ? "0" : "") + std::to_string(day) + ".txt";
+               + (month < 10 ? "0" : "") + std::to_string(month) + (day < 10 ? "0" : "") + std::to_string(day) + ".txt";
     }
 } // namespace ftp_explorer
 

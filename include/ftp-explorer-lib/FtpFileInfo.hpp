@@ -1,7 +1,7 @@
 // Copyright 2020 Petr Portnov <gh@progrm-jarvis.ru>
 
-#ifndef INCLUDE_HEADER_HPP_
-#define INCLUDE_HEADER_HPP_
+#ifndef INCLUDE_FTP_EXPLORER_LIB_FTPFILEINFO_HPP_
+#define INCLUDE_FTP_EXPLORER_LIB_FTPFILEINFO_HPP_
 
 #include <date/date.h>
 
@@ -44,4 +44,4 @@ namespace std {
     };
 } // namespace std
 
-#endif // INCLUDE_HEADER_HPP_
+#endif // INCLUDE_FTP_EXPLORER_LIB_FTPFILEINFO_HPP_

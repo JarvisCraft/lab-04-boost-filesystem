@@ -29,15 +29,13 @@ int main(int const argument_count, char* const arguments[]) {
         for (auto const& info : broker.second) {
             {
                 auto iter = broker_summaries.find(info.id);
-                //@formatter:off
-                if (iter == broker_summaries.end()) broker_summaries.insert(::std::make_pair(
-                    info.id, Summary{1, info.date}));
-                else {
+                if (iter == broker_summaries.end()) {
+                    broker_summaries.insert(::std::make_pair(info.id, Summary{1, info.date}));
+                } else {
                     auto& element = iter->second;
                     ++element.files;
                     if (element.lastDate < info.date) element.lastDate = info.date;
                 }
-                //@formatter:on
             }
 
             ::std::cout << broker.first << ' ' << info.to_filename() << "\n";
@@ -45,14 +43,15 @@ int main(int const argument_count, char* const arguments[]) {
 
         summaries.insert(::std::make_pair(broker.first, broker_summaries));
     }
-    //@formatter:on
     ::std::cout << '\n';
 
+    //@formatter:off
     for (auto const& broker_summary : summaries) for (auto const& summary : broker_summary.second) ::std::cout
                                                               << "broker:" << broker_summary.first
                                                               << " account:" << summary.first
                                                               << " files:" << summary.second.files
                                                               << " lastdate:" << summary.second.lastDate
                                                               << "\n";
+    //@formatter:on
     ::std::cout.flush();
 }

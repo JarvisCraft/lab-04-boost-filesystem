@@ -4,13 +4,9 @@
 
 namespace ftp_explorer {
 
-    bool FtpData::operator==(FtpData const& other) const {
-        return brokers == other.brokers;
-    }
+    bool FtpData::operator==(FtpData const& other) const { return brokers == other.brokers; }
 
-    bool FtpData::operator!=(FtpData const& other) const {
-        return brokers != other.brokers;
-    }
+    bool FtpData::operator!=(FtpData const& other) const { return brokers != other.brokers; }
 
     static ::std::unordered_set<FtpFileInfo> parse_directory_(filesystem::path const& broker_path) {
         // the check should actually be done by caller
@@ -49,4 +45,4 @@ namespace ftp_explorer {
 
         return FtpData{brokers};
     }
-}
+} // namespace ftp_explorer

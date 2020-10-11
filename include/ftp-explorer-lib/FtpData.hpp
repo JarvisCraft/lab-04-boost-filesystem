@@ -1,8 +1,9 @@
 // Copyright 2020 Petr Portnov <gh@progrm-jarvis.ru>
 
-#ifndef INCLUDE_FTP_DATA_HPP_
-#define INCLUDE_FTP_DATA_HPP_
+#ifndef INCLUDE_FTP_EXPLORER_LIB_FTPDATA_HPP_
+#define INCLUDE_FTP_EXPLORER_LIB_FTPDATA_HPP_
 
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -23,6 +24,6 @@ namespace ftp_explorer {
 
         [[nodiscard]] static ::std::optional<FtpData> from_path(filesystem::path const& directory);
     };
-}
+} // namespace ftp_explorer
 
-#endif // INCLUDE_FTP_DATA_HPP_
+#endif // INCLUDE_FTP_EXPLORER_LIB_FTPDATA_HPP_
