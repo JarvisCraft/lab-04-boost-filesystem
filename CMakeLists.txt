@@ -18,35 +18,30 @@ HunterGate(
         SHA1 "2d6686024529b471e0cc3a4fc07d4d64b62a53ee"
 )
 
-
-# TODO: rename project and delete this comment
-project(template)
+project(ftp-explorer-lib)
+project(ftp-explorer-app)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
+hunter_add_package(Boost COMPONENTS filesystem)
+find_package(Boost CONFIG REQUIRED filesystem)
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
-# TODO: change template word to project name and delete this comment
-add_library(template STATIC
-        # enum your files and delete this comment
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
+add_library(ftp-explorer-lib STATIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/ftp-explorer-lib.cpp
         )
-add_executable(tests
-        # TODO: enum your files and delete this comment
-        ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.cpp
-        )
+file(GLOB TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp")
+add_executable(tests ${TEST_SOURCES})
+add_executable(ftp-explorer-app ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp)
 
-# TODO: change template word to project name and delete this comment
-target_include_directories(template
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-        )
-target_include_directories(tests
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-        )
-# TODO: change template word to project name and delete this comment
-target_link_libraries(tests PRIVATE GTest::gmock_main template)
+target_include_directories(ftp-explorer-lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(ftp-explorer-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+target_link_libraries(ftp-explorer-lib PUBLIC Boost::filesystem)
+target_link_libraries(tests PRIVATE GTest::gmock_main ftp-explorer-lib)
+target_link_libraries(ftp-explorer-app PRIVATE GTest::gmock_main template)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests)
@@ -64,8 +59,7 @@ if(BUILD_COVERAGE)
   set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
   list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools/CMake-codecov/cmake")
   find_package(codecov)
-  # TODO: change template word to project name and delete this comment
-  enable_project_coverage(template)
+  enable_project_coverage(ftp-explorer-lib)
   enable_project_coverage(tests)
   list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
   coverage_evaluate()
