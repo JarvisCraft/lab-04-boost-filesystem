@@ -35,4 +35,9 @@ namespace ftp_explorer {
 
         return from_filename(filepath.filename().string());
     }
+
+    ::std::string FileInfo::to_filename() const {
+        return type + '_' + ::std::to_string(id) + '_' + std::to_string((int)date.year())
+               + std::to_string((unsigned int)date.month()) + std::to_string((unsigned int)date.day());
+    }
 } // namespace ftp_explorer

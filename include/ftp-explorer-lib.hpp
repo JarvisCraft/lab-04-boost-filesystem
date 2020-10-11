@@ -27,6 +27,8 @@ namespace ftp_explorer {
 
         bool operator!=(FileInfo const& other) const;
 
+        [[nodiscard]] ::std::string to_filename() const;
+
         static ::std::optional<FileInfo> from_filename(::std::string const& filename);
 
         static ::std::optional<FileInfo> from_path(filesystem::path const& filepath);

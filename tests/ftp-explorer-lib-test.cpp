@@ -27,4 +27,14 @@ namespace ftp_explorer {
         EXPECT_FALSE(FileInfo::from_filename("balance_12345678_20201000.txt"));
         EXPECT_FALSE(FileInfo::from_filename("action_14292387_20013112.txt"));
     }
+
+    TEST(FileInfo, as_filename) {
+        EXPECT_EQ(
+            "balance_88005553_20071103",
+            (FileInfo{"balance", 88005553u, date::year_month_day{date::year{2007}, date::month{11u}, date::day{3u}}}
+                 .to_filename()));
+        EXPECT_EQ("magic_19283746_19961008.txt",
+                  (FileInfo{"magic", 19283746u, date::year_month_day{date::year{1996}, date::month{10u}, date::day{8u}}}
+                       .to_filename()));
+    }
 } // namespace ftp_explorer
