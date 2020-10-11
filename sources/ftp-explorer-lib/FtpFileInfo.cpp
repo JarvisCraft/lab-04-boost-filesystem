@@ -42,8 +42,9 @@ namespace ftp_explorer {
         auto const day = static_cast<unsigned int>(date.day());
 
         return type + '_' + ::std::to_string(id) + '_'
-               + (year < 1000 ? year < 100 ? year < 10 ? "000" : "00" : "0" : "") + std::to_string(year)
-               + (month < 10 ? "0" : "") + std::to_string(month) + (day < 10 ? "0" : "") + std::to_string(day) + ".txt";
+               + (year < 1000 ? year < 100 ? year < 10 ? "000" : "00" : "0" : "") + ::std::to_string(year)
+               + (month < 10 ? "0" : "") + ::std::to_string(month) + (day < 10 ? "0" : "") + ::std::to_string(day)
+               + ".txt";
     }
 } // namespace ftp_explorer
 
@@ -51,7 +52,8 @@ namespace std {
 
     size_t hash<::ftp_explorer::FtpFileInfo>::operator()(ftp_explorer::FtpFileInfo const& hashed) const {
         return ::std::hash<::std::string>{}(hashed.type) * 31 * 31 * 31 * 31
-               + ::std::hash<::std::uint32_t>{}(hashed.id) * 31 * 31 * 31 + (int)hashed.date.year() * 31 * 31
-               + (unsigned int)hashed.date.month() * 31 + (unsigned int)hashed.date.day() * 31;
+               + ::std::hash<::std::uint32_t>{}(hashed.id) * 31 * 31 * 31
+               + static_cast<int>(hashed.date.year()) * 31 * 31 + static_cast<unsigned int>(hashed.date.month()) * 31
+               + static_cast<unsigned int>(hashed.date.day()) * 31;
     }
 } // namespace std

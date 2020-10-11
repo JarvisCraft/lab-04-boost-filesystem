@@ -40,7 +40,7 @@ namespace ftp_explorer {
             auto const broker_name = broker_path.filename().string();
             if (PERMITTED_BROKERS.find(broker_name) == PERMITTED_BROKERS.end()) continue;
 
-            brokers.insert(::std::make_pair<>(broker_name, parse_directory_(broker_path)));
+            brokers.insert(::std::make_pair(broker_name, parse_directory_(broker_path)));
         }
 
         return FtpData{brokers};
