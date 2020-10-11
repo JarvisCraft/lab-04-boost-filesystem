@@ -23,15 +23,15 @@ namespace ftp_explorer {
         ::std::uint32_t id;
         date::year_month_day date;
 
-        bool operator==(FileInfo const& other) const;
+        [[nodiscard]] bool operator==(FileInfo const& other) const;
 
-        bool operator!=(FileInfo const& other) const;
+        [[nodiscard]] bool operator!=(FileInfo const& other) const;
 
         [[nodiscard]] ::std::string to_filename() const;
 
-        static ::std::optional<FileInfo> from_filename(::std::string const& filename);
+        [[nodiscard]] static ::std::optional<FileInfo> from_filename(::std::string const& filename);
 
-        static ::std::optional<FileInfo> from_path(filesystem::path const& filepath);
+        [[nodiscard]] static ::std::optional<FileInfo> from_path(filesystem::path const& filepath);
     };
 } // namespace ftp_explorer
 
