@@ -19,6 +19,7 @@ HunterGate(
 )
 
 project(ftp-explorer-lib)
+project(ftp-explorer-lib-tests)
 project(ftp-explorer-app)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
@@ -31,22 +32,22 @@ find_package(date CONFIG REQUIRED)
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
-add_library(ftp-explorer-lib STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/ftp-explorer-lib.cpp
-        )
-file(GLOB TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp")
-add_executable(tests ${TEST_SOURCES})
-add_executable(ftp-explorer-app ${CMAKE_CURRENT_SOURCE_DIR}/sources/main.cpp)
+file(GLOB FTP-EXPLORER-LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/ftp-explorer-lib/*.cpp")
+add_library(ftp-explorer-lib STATIC ${FTP-EXPLORER-LIB_SOURCES})
+file(GLOB FTP-EXPLORER-LIB-TESTS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/tests/ftp-explorer-lib/*.cpp")
+add_executable(ftp-explorer-lib-tests ${FTP-EXPLORER-LIB-TESTS_SOURCES})
+file(GLOB FTP-EXPLORER-APP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/ftp-explorer-app/*.cpp")
+add_executable(ftp-explorer-app ${FTP-EXPLORER-APP_SOURCES})
 
 target_include_directories(ftp-explorer-lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(ftp-explorer-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(ftp-explorer-lib PUBLIC Boost::filesystem date::date)
-target_link_libraries(tests PRIVATE GTest::gmock_main ftp-explorer-lib)
+target_link_libraries(ftp-explorer-lib-tests PRIVATE GTest::gmock_main ftp-explorer-lib)
 target_link_libraries(ftp-explorer-app PRIVATE ftp-explorer-lib)
 
 enable_testing()
-add_test(NAME unit_tests COMMAND tests)
+add_test(NAME unit_tests COMMAND ftp-explorer-lib-tests)
 
 if (BUILD_COVERAGE)
     function(ENABLE_PROJECT_COVERAGE PROJECT)
@@ -62,7 +63,7 @@ if (BUILD_COVERAGE)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools/CMake-codecov/cmake")
     find_package(codecov)
     enable_project_coverage(ftp-explorer-lib)
-    enable_project_coverage(tests)
+    enable_project_coverage(ftp-explorer-lib-tests)
     list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
     coverage_evaluate()
 endif ()

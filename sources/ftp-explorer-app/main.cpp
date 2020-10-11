@@ -1,6 +1,6 @@
 // Copyright 2020 Petr Portnov <gh@progrm-jarvis.ru>
 
-#include <ftp-explorer-lib.hpp>
+#include <ftp-explorer-lib/FtpFileInfo.hpp>
 #include <iostream>
 
 int main(int const argument_count, char* const arguments[]) {
